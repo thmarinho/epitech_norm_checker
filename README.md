@@ -14,7 +14,7 @@ git clone https://github.com/thmarinho/epitech_norm_checker.git
 
 ## Authors
 
-* **Théo MARINHOn**
+* **Théo MARINHO**
 * **Bruno DURAND**
 
 ## License
