@@ -5,6 +5,7 @@ GREEN='\033[0;32m'
 GRAY='\033[0;37m'
 NC='\033[0m'            # No Color
 HEADER_REGEXP='^/\*\036\*\* EPITECH PROJECT, (20(1[7-9]|[2-9]\d)|2[1-9]\d{2}|[3-9]\d{3})\036\*\* [^\036]+\036\*\* File description:\036\*\* [^\036]+\036\*/\036\036'
+FORBIDEN_FUNCTIONS=( "printf" "dprintf" "fprintf" "vprintf" "sprintf" "snprintf" "vprintf" "vfprintf" "vsprintf" "vsnprintf" "asprintf" "scranf" "memcpy" "memset" "memmove" "strcat" "strchar" "strcpy" "atoi" "strlen" "strstr" "strncat" "strncpy" "strcasestr" "strncasestr" "strcmp" "strncmp" "strtok" "strnlen" "strdup" "realloc")
 
 header_format()
 {
@@ -102,6 +103,23 @@ identation()
     done < $file
 }
 
+forbiden_functions()
+{
+    local file=$1
+    local line=1
+
+    while IFS= read -r tmp; do
+        for function in $FORBIDEN_FUNCTIONS; do
+            if (echo $tmp | grep -qP $function 2> /dev/null); then
+                echo -ne "${RED}Major\t${NC}: "
+                echo -ne "$file" | sed 's/^..//'
+                echo -e ": $line: Use of forbidden function ($function)"
+            fi
+        done
+        ((line++))
+    done < $file
+}
+
 files=$(find -type f -name "*.c")
 
 for file in $files; do
@@ -110,5 +128,6 @@ for file in $files; do
     trailing_spaces $file       # Implicit
     functions_separator $file   # Minor
     identation $file            # Minor
+    forbiden_functions $file    # Major
 done
 useless_files $files            # Major
