@@ -5,7 +5,7 @@ GREEN='\033[0;32m'
 GRAY='\033[0;37m'
 NC='\033[0m'            # No Color
 HEADER_REGEXP='^/\*\036\*\* EPITECH PROJECT, (20(1[7-9]|[2-9]\d)|2[1-9]\d{2}|[3-9]\d{3})\036\*\* [^\036]+\036\*\* File description:\036\*\* [^\036]+\036\*/\036\036'
-FORBIDEN_FUNCTIONS=( "printf" "dprintf" "fprintf" "vprintf" "sprintf" "snprintf" "vprintf" "vfprintf" "vsprintf" "vsnprintf" "asprintf" "scranf" "memcpy" "memset" "memmove" "strcat" "strchar" "strcpy" "atoi" "strlen" "strstr" "strncat" "strncpy" "strcasestr" "strncasestr" "strcmp" "strncmp" "strtok" "strnlen" "strdup" "realloc")
+FORBIDEN_FUNCTIONS=( "printf" "dprintf" "fprintf" "vprintf" "sprintf" "snprintf" "vprintf" "vfprintf" "vsprintf" "vsnprintf" "asprintf" "scranf" "memcpy" "memset" "memmove" "strcat" "strchar" "strcpy" "atoi" "strlen" "strstr" "strncat" "strncpy" "strcasestr" "strncasestr" "strcmp" "strncmp" "strtok" "strnlen" "strdup" "realloc" "reallocarray" )
 
 header_format()
 {
