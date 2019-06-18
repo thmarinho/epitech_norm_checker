@@ -102,6 +102,32 @@ identation()
     done < $file
 }
 
+too_long_function()
+{
+    local file=$1
+    local line=1
+    local inc=0
+
+    while IFS= read -r tmp; do
+        if [[ ${tmp::1} == "{" ]]; then
+            while read tmp; do
+                if [ $tmp ] || [[ $temp =~ ^\w{1}$ ]]; then
+                    ((inc++))
+                fi
+                if [[ ${tmp::1} == "}" ]]; then
+                    break
+                fi
+                ((line++))
+            done
+        fi
+    done < $file
+    if [[ $inc > 21 ]]; then
+        echo -ne "${RED}Major\t${NC}: "
+        echo -n "$file" | sed 's/^..//'
+        echo -e ": $((line)): Too long function"
+    fi
+}
+
 files=$(find -type f -name "*.c")
 
 for file in $files; do
@@ -110,5 +136,6 @@ for file in $files; do
     trailing_spaces $file       # Implicit
     functions_separator $file   # Minor
     identation $file            # Minor
+    too_long_function $file     # Major
 done
 useless_files $files            # Major
