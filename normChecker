@@ -166,7 +166,7 @@ for file in $files; do
     line_length $file           # Major
     trailing_spaces $file       # Implicit
     functions_separator $file   # Minor
-    identation $file            # Minor
+    #identation $file            # Minor
     # too_long_function $file    # Major
     forbiden_functions $file    # Major
     count_functions $file    # Major
