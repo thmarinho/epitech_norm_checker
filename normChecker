@@ -149,20 +149,14 @@ forbiden_functions()
 count_functions()
 {
     local file=$1
-    local line=1
-    local count=0
+    local tmp=$(cat $file | grep "^{" | wc -l)
 
-    while IFS= read -r tmp; do
-        if [[ ${tmp::1} == "{" ]]; then
-            ((count++))
-        fi
-        ((line++))
-    done < $file
-    if [[ $count > 5 ]]; then
+    if (( tmp > 5 )); then
         echo -ne "${RED}Major\t${NC}: "
         echo -ne "$file" | sed 's/^..//'
-        echo -e ": Too many functions"
+        echo -e ": Too much function in this file ($tmp > 5)"
     fi
+
 }
 
 files=$(find -type f -name "*.c")
