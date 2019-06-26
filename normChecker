@@ -162,13 +162,46 @@ count_functions()
 files=$(find -type f -name "*.c")
 
 for file in $files; do
-    header_format $file
-    line_length $file           # Major
-    trailing_spaces $file       # Implicit
-    functions_separator $file   # Minor
-    #identation $file           # Minor
-    #too_long_function $file     # Major
-    forbiden_functions $file    # Major
-    count_functions $file       # Major
+    while test $# -gt 0; do
+        case "$1" in
+            --header)
+                header_format $file
+                break
+                ;;
+            --line)
+                line_length $file           # Major
+                break
+                ;;
+            --spaces)
+                trailing_spaces $file       # Implicit
+                break
+                ;;
+            --fseparator)
+                functions_separator $file   # Minor
+                break
+                ;;
+            #identation $file            # Minor
+            # too_long_function $file    # Major
+            --forbidden)
+                forbiden_functions $file    # Major
+                break
+                ;;
+            --countf)
+                count_functions $file    # Major
+                break
+                ;;
+            *)
+                #identation $file            # Minor
+                # too_long_function $file    # Major
+                line_length $file           # Major
+                trailing_spaces $file       # Implicit
+                forbiden_functions $file    # Major
+                functions_separator $file   # Minor
+                count_functions $file    # Major
+                header_format $file
+                break
+                ;;
+        esac
+    done
 done
 useless_files $files            # Major
